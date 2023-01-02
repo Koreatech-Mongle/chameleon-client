@@ -3,12 +3,8 @@ import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import {Main, Login, SignUp, Layout ,History, Model} from './components';
 import WebSocket from './service/WebSocket';
 import './App.css';
-import {useStateContext} from './contexts/ContextProvider';
-
 export default function App() {
-  const currentMode = useStateContext();
   return (
-    <div className={currentMode === 'Dark' ? 'dark' : ''}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={(<Layout/>)}>
@@ -21,6 +17,5 @@ export default function App() {
           <Route path="/websocket" element={<WebSocket/>}/>
         </Routes>
       </BrowserRouter>
-    </div>
   );
 };
