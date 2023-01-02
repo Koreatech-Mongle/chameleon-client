@@ -3,6 +3,7 @@ import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import {Main, Login, SignUp, Layout} from './components';
 import {Model} from './models';
 import History from './historys/History';
+import WebSocket from './Service/WebSocket';
 import './App.css';
 import {useStateContext} from './contexts/ContextProvider';
 
@@ -19,6 +20,7 @@ export default function App() {
           </Route>
           <Route path="/login" element={(<Login/>)}/>
           <Route path="/signup" element={(<SignUp/>)}/>
+          <Route path="/websocket" element={<WebSocket/>}/>
         </Routes>
       </BrowserRouter>
     </div>
