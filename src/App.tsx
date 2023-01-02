@@ -1,9 +1,7 @@
 import React from 'react';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
-import {Main, Login, SignUp, Layout} from './components';
-import {Model} from './models';
-import History from './historys/History';
-import WebSocket from './Service/WebSocket';
+import {Main, Login, SignUp, Layout ,History, Model} from './components';
+import WebSocket from './service/WebSocket';
 import './App.css';
 import {useStateContext} from './contexts/ContextProvider';
 
