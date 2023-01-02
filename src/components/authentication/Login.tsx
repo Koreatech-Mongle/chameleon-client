@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import {SubmitButton} from '../index';
 import chameleon from '../../assets/images/chameleon.png';
 import {useStateContext} from "../../contexts/ContextProvider";
-import {Signin} from "../../Service/login/LoginToken"
+import {Signin} from "../../service/login/LoginToken"
 
 export default function Login() {
   const {currentColor} = useStateContext();
