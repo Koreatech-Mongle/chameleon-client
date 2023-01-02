@@ -5,7 +5,6 @@ export default function WebSocket() {
     const [messageHistory, setMessageHistory] = useState([]);
     const {
         sendMessage,
-        lastMessage,
         lastJsonMessage,
         readyState,
         getWebSocket,
