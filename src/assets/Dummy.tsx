@@ -1,6 +1,6 @@
 import React from 'react';
 import {BsFillPersonLinesFill} from 'react-icons/bs';
-import {BiCreditCard, BiFolder, BiCartAlt, BiTransfer} from 'react-icons/bi';
+import {BiCartAlt, BiCreditCard, BiFolder, BiTransfer} from 'react-icons/bi';
 import {RiHistoryFill} from 'react-icons/ri';
 import {GiArtificialHive} from 'react-icons/gi';
 import {MdOutlineAccountCircle} from 'react-icons/md';
@@ -231,15 +231,13 @@ export const userSchema = {
     definitions: {
         string: {
             type: "object",
-            title: "string",
-            label: "string",
             properties: {
                 name: {
                     type: 'string'
                 },
                 type: {
-                    type : 'string',
-                    enum: ['string']
+                    type: 'string',
+                    default: 'string'
                 },
                 format: {
                     type: 'string',
@@ -260,14 +258,13 @@ export const userSchema = {
         },
         number: {
             type: "object",
-            title: "Number",
             properties: {
                 name: {
                     type: 'string'
                 },
                 type: {
-                    type : 'string',
-                    enum: ['number']
+                    type: 'string',
+                    default: 'number'
                 },
                 minimum: {
                     type: 'number',
@@ -289,14 +286,13 @@ export const userSchema = {
         },
         integer: {
             type: "object",
-            title: "Integer",
             properties: {
                 name: {
                     type: 'string'
                 },
                 type: {
-                    type : 'string',
-                    enum: ['integer']
+                    type: 'string',
+                    default: 'integer'
                 },
                 minimum: {
                     type: 'integer',
@@ -318,14 +314,13 @@ export const userSchema = {
         },
         boolean: {
             type: "object",
-            title: "Boolean",
             properties: {
                 name: {
                     type: 'string'
                 },
                 type: {
-                    type : 'string',
-                    enum: ['boolean']
+                    type: 'string',
+                    default: 'boolean'
                 },
                 description: {
                     type: 'string'
@@ -372,9 +367,74 @@ export const userUISchema = {
         {
             type: "Control",
             label: "parameter",
-            scope: "#/properties/parameter"
+            scope: "#/properties/parameter",
+            options: {
+                detail: {
+                    type: 'VerticalLayout',
+                    elements: [{
+                        type: "Control",
+                        scope: "#/properties/typeChoose",
+                        options: {
+                            detail: {
+                                type: 'VerticalLayout',
+                                elements: [
+                                    {
+                                        type: "Control",
+                                        scope: "#/properties/name"
+                                    },
+                                    {
+                                        type: "Control",
+                                        scope: "#/properties/format",
+                                        rule: {
+                                            "effect": "SHOW",
+                                            "condition": {
+                                                "scope": "#/properties/type",
+                                                "schema": { const : 'string' }
+                                            }
+                                        }
+                                    },
+                                    {
+                                        type: "Control",
+                                        scope: "#/properties/type"
+                                    },
+                                    {
+                                        type: "Control",
+                                        scope: "#/properties/minLength",
+                                        rule: {
+                                            "effect": "SHOW",
+                                            "condition": {
+                                                "scope": "#/properties/type",
+                                                "schema": { const : 'string' }
+                                            }
+                                        }
+                                    },
+                                    {
+                                        type: "Control",
+                                        scope: "#/properties/maxLength",
+                                        rule: {
+                                            "effect": "SHOW",
+                                            "condition": {
+                                                "scope": "#/properties/type",
+                                                "schema": { const : 'string' }
+                                            }
+                                        }
+                                    },
+                                    {
+                                        type: "Control",
+                                        scope: "#/properties/enum"
+                                    },
+                                    {
+                                        type: "Control",
+                                        scope: "#/properties/description"
+                                    },
+                                ]
+                            }
+                        }
+                    }]
+                }
+            }
         },
-    ]
+    ],
 };
 
 export const exparamTab = [

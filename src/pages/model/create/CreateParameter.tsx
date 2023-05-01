@@ -4,7 +4,7 @@ import {crparamTab, userSchema, userUISchema} from "../../../assets/Dummy"
 import {Link} from "react-router-dom";
 import {useStateContext} from "../../../contexts/ContextProvider";
 import {TypeChoose} from "../../../types/Types";
-import {JsonSchema} from "@jsonforms/core";
+import {createAjv, JsonSchema} from "@jsonforms/core";
 import {JsonForms} from "@jsonforms/react";
 import {materialCells, materialRenderers} from "@jsonforms/material-renderers";
 import ErrorBoundary from "../module/ParamErrorboundary";
@@ -116,6 +116,9 @@ function generateJsonFormsSchema(parameters: Parameter[]): JsonSchema {
 
 
 export default function CreateParameter() {
+
+    const handleDefaultsAjv = createAjv({useDefaults: true});
+
     const [activeTabIndex, setActiveTabIndex] = useState(0);
     const {currentColor} = useStateContext();
     const [formData, setFormData] = useState(initialParameter);
@@ -204,6 +207,7 @@ export default function CreateParameter() {
                                                 renderers={materialRenderers}
                                                 cells={materialCells}
                                                 onChange={handleFormChange}
+                                                ajv={handleDefaultsAjv}
                                             />
                                         </div>
                                         <div>
