@@ -10,7 +10,7 @@ interface DescriptionProps {
     uniqueName: string;
 }
 
-export default function Description({uniqueName}: DescriptionProps) {
+export default function Description({uniqueName}: DescriptionProps, {setSelectedModel} : React.Dispatch<React.SetStateAction<string>>) {
     const [modelData, setModelData] = useState<ModelEntityData>();
 
     useEffect(() => {
@@ -45,6 +45,7 @@ export default function Description({uniqueName}: DescriptionProps) {
                     <div className="flex gap-2">
                         <Link to="/models/execute" state={{}}>
                             <Button className="color-btn text-sm w-full p-1.5" text="start"/>
+                            <button className="color-btn text-sm w-full p-1.5" onClick={() => (setSelectedModel(""))}> x </button>
                         </Link>
                     </div>
                 </div>
