@@ -49,7 +49,7 @@ export default function Description(props: DescriptionProps) {
                         <Link to="/models/execute" state={{}}>
                             <Button className="color-btn text-sm w-full p-1.5" text="start"/>
                         </Link>
-                        <button className="text-gray-500 text-xl rounded-full hover:text-black hover:bg-light-gray"
+                        <button className="text-gray-500 text-2xl rounded-full hover:text-black hover:bg-light-gray"
                                 onClick={() => (setSelectedModel(""))}><MdOutlineCancel/></button>
                     </div>
                 </div>
