@@ -5,6 +5,7 @@ import MDEditor from "@uiw/react-md-editor";
 import Button from "../button/Button";
 import {PlatformAPI} from "../../platform/PlatformAPI";
 import {ModelEntityData} from "../../types/chameleon-client.entitydata";
+import {MdOutlineCancel} from "react-icons/md";
 
 interface DescriptionProps {
     uniqueName: string;
@@ -44,11 +45,12 @@ export default function Description(props: DescriptionProps) {
                 <div
                     className="flex justify-between items-center pb-6 border-b-1 border-gray-300 overflow-auto overflow-scroll max-h-screen">
                     <p className="text-3xl font-extrabold tracking-tight text-slate-900">{modelData?.name}</p>
-                    <div className="flex gap-2">
+                    <div className="flex gap-2 items-center">
                         <Link to="/models/execute" state={{}}>
                             <Button className="color-btn text-sm w-full p-1.5" text="start"/>
                         </Link>
-                        <button className="color-btn text-sm w-full p-1.5" onClick={() => (setSelectedModel(""))}> x </button>
+                        <button className="text-gray-500 text-xl rounded-full hover:text-black hover:bg-light-gray"
+                                onClick={() => (setSelectedModel(""))}><MdOutlineCancel/></button>
                     </div>
                 </div>
                 <div className="mt-8 overflow-auto overflow-scroll max-h-screen">
