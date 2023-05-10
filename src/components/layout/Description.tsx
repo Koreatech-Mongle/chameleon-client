@@ -6,11 +6,8 @@ import Button from "../button/Button";
 import {PlatformAPI} from "../../platform/PlatformAPI";
 import {ModelEntityData} from "../../types/chameleon-client.entitydata";
 import {MdOutlineCancel} from "react-icons/md";
+import {DescriptionProps} from "../../types/chameleon-client.entitydata";
 
-interface DescriptionProps {
-    uniqueName: string;
-    setSelectedModel: React.Dispatch<React.SetStateAction<string>>
-}
 
 export default function Description(props: DescriptionProps) {
     const {uniqueName, setSelectedModel} = props;

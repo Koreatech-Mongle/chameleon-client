@@ -1,3 +1,5 @@
+import React from "react";
+
 export interface HistoryEntityData {
     id: number;
     createdTime: Date;
@@ -59,4 +61,9 @@ export interface WalletEntityData {
     id: number;
     point: number;
     user: UserEntityData;
+}
+
+export interface DescriptionProps {
+    uniqueName: string;
+    setSelectedModel: React.Dispatch<React.SetStateAction<string>>
 }
