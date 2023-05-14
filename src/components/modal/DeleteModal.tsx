@@ -1,5 +1,6 @@
 import React from 'react';
 import './DeleteModal.css';
+//TODO : add open, close, onSubmit to normalization
 export default function DeleteModal({header, open, close}: {header: string, open: boolean, close: Function}) {
     return (
         <div className={open ? 'openModal modal' : 'modal'}>
