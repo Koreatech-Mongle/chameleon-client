@@ -17,7 +17,7 @@ export const modelColumn = {
     list: ['Model Name', 'Input Type', 'Output Type', 'Register', 'Last Modified Date', 'start']
 };
 
-export default function Models() {
+export default function Models({own} : {own:boolean}) {
     const {
         menuState,
         onClickMenu,
@@ -33,7 +33,7 @@ export default function Models() {
 
         (async function () {
             try {
-                const models = await PlatformAPI.getModels();
+                const models = await (own?PlatformAPI.getMyModels():PlatformAPI.getModels());
                 if (!completed) {
                     setModels(models);
                 }
@@ -45,7 +45,7 @@ export default function Models() {
         return () => {
             completed = true;
         };
-    }, []);
+    }, [own]);
 
     const onModelSelect = (modelData: ModelEntityData) => {
         setSelectedModelId(modelData.id);
@@ -64,11 +64,14 @@ export default function Models() {
           <span
             className="text-gray-700 flex justify-between w-full px-1 py-2 text-sm leading-5 text-left">Update Model</span>
         </Link>
-        <Link to="/" className="flex items-center rounded-full p-1 hover:bg-light-gray focus:bg-gray">
-          <BiTrash size="25" color="#484848" className="pl-1"/>
-          <span
-            className="text-gray-700 flex justify-between w-full px-1 py-2 text-sm leading-5 text-left">Delete Model</span>
-        </Link>
+          {
+              own?<Link to="/" className="flex items-center rounded-full p-1 hover:bg-light-gray focus:bg-gray">
+                  <BiTrash size="25" color="#484848" className="pl-1"/>
+                  <span
+                      className="text-gray-700 flex justify-between w-full px-1 py-2 text-sm leading-5 text-left">Delete Model</span>
+              </Link>: <></>
+          }
+
       </div>
     );
 

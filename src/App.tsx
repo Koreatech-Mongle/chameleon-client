@@ -44,8 +44,8 @@ export default function App() {
                 <Route path="/account" element={<Account/>}/>
                 <Route path="/change-password" element={<ChangePassword/>}/>
                 <Route path="/payment" element={<Payment/>}/>
-                <Route path="/models/my" element={<Models/>}/>
-                <Route path="/models/all" element={<Models/>}/>
+                <Route path="/models/my" element={<Models own={true}/>}/>
+                <Route path="/models/all" element={<Models own={false}/>}/>
                 <Route path="/models/execute" element={<ExecuteModel/>}/>
                 <Route path="/models/create" element={<CreateModel/>}/>
                 <Route path="/models/create/description" element={<CreateDescription/>}/>
