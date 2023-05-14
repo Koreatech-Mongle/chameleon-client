@@ -12,6 +12,7 @@ import Header from "../../../components/layout/Header";
 import {PlatformAPI} from "../../../platform/PlatformAPI";
 import {ModelEntityData} from "../../../types/chameleon-platform.common";
 import {DateUtils} from "../../../utils/DateUtils";
+import DeleteModal from "../../../components/modal/DeleteModal";
 
 export const modelColumn = {
     list: ['Model Name', 'Input Type', 'Output Type', 'Register', 'Last Modified Date', 'start']
@@ -27,6 +28,8 @@ export default function Models({own} : {own:boolean}) {
     } = useStateContext();
     const [models, setModels] = useState<ModelEntityData[]>([]);
     const [selectedModelId, setSelectedModelId] = useState<number>(-1);
+    const [deleteOption, setDelete] = useState(false);
+    const [modalOpen, setModalOpen] = useState(false);
 
     useEffect(() => {
         let completed = false;
@@ -51,6 +54,9 @@ export default function Models({own} : {own:boolean}) {
         setSelectedModelId(modelData.id);
     };
 
+    const onDeleteClick = () => {
+        setSelectedModelId(-1);
+    }
 
     const ArrangeMenu = () => (
       <div className="flex items-center gap-2">
@@ -65,11 +71,11 @@ export default function Models({own} : {own:boolean}) {
             className="text-gray-700 flex justify-between w-full px-1 py-2 text-sm leading-5 text-left">Update Model</span>
         </Link>
           {
-              own?<Link to="/" className="flex items-center rounded-full p-1 hover:bg-light-gray focus:bg-gray">
+              own?<button className="flex items-center rounded-full p-1 hover:bg-light-gray focus:bg-gray" onClick={() => setDelete(!deleteOption)}>
                   <BiTrash size="25" color="#484848" className="pl-1"/>
                   <span
                       className="text-gray-700 flex justify-between w-full px-1 py-2 text-sm leading-5 text-left">Delete Model</span>
-              </Link>: <></>
+              </button>: <></>
           }
 
       </div>
@@ -97,11 +103,11 @@ export default function Models({own} : {own:boolean}) {
           <span
             className="text-gray-700 flex justify-between w-full px-1 py-2 text-sm leading-5 text-left">Update Model</span>
         </Link>
-        <Link to="/" className="flex gap-1 hover:bg-gray-100 items-center">
+        <button className="flex gap-1 hover:bg-gray-100 items-center" onClick={() => setDelete(!deleteOption)}>
           <RiDeleteBinLine size="25" color="#484848" className="pl-1"/>
           <span
             className="text-gray-700 flex justify-between w-full px-1 py-2 text-sm leading-5 text-left">Delete Model</span>
-        </Link>
+        </button>
       </div>
     );
 
@@ -110,7 +116,11 @@ export default function Models({own} : {own:boolean}) {
           {models.map((modelData) => (
               <div key={modelData.id} onClick={() => onModelSelect(modelData)}
                    className="w-auto px-5 p-5 mb-4 mr-1 bg-white rounded-xl drop-shadow-lg hover:drop-shadow-xl cursor-pointer">
-                  <p className="border-b-2 font-semibold text-xl break-all">{modelData.name}</p>
+                  <div className={'border-b-2 '} style={{display:'flex', flexDirection:'row', justifyContent:'space-between', alignItems:'center'}}>
+                      <p className="font-semibold text-xl break-all">{modelData.name}</p>
+                      {deleteOption? <RiDeleteBinLine size="25" color="#484848" className="pl-1" onClick={() => setModalOpen(true)}/>
+                      :''}
+                  </div>
                   <div className="flex">
                       <div className="py-3"><Badge color="indigo">Input: {modelData.inputType}</Badge></div>
                       <div className="p-3"><Badge color="purple">Output: {modelData.outputType}</Badge></div>
@@ -163,6 +173,7 @@ export default function Models({own} : {own:boolean}) {
     <div className="contents">
         <div className="w-full m-2 md:m-10 mt-24">
             <div className="flex justify-between items-center">
+                <DeleteModal header={'adsf'} open={modalOpen} close={setModalOpen}/>
                 <div className="flex">
                     <Header title="Models"/>
                     <button onClick={() => setCurrentLayout("GridLayout")} type="button"
