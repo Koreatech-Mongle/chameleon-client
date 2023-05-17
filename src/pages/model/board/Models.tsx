@@ -28,8 +28,10 @@ export default function Models({own} : {own:boolean}) {
     } = useStateContext();
     const [models, setModels] = useState<ModelEntityData[]>([]);
     const [selectedModelId, setSelectedModelId] = useState<number>(-1);
+    const [selectedModelName, setSelectedModelName] = useState('');
     const [deleteOption, setDelete] = useState(false);
     const [modalOpen, setModalOpen] = useState(false);
+
 
     useEffect(() => {
         let completed = false;
@@ -54,11 +56,29 @@ export default function Models({own} : {own:boolean}) {
         setSelectedModelId(modelData.id);
     };
 
-    const onDeleteClick = () => {
+    const onModalClose = () => {
+        setModalOpen(false)
         setSelectedModelId(-1);
-        setModalOpen(false);
     }
 
+    const onBinClick = (modelName: string) => {
+        setModalOpen(true)
+        setSelectedModelId(-1);
+        setSelectedModelName(modelName);
+    }
+
+    const onModalDeleteClick = async () => {
+        try {
+            const uploadResult = await PlatformAPI.deleteModelById(selectedModelId);
+            console.log(uploadResult);
+        } catch (error: any) {
+            if (error.response && error.response.status === 501) {
+                console.error(error.response.data);
+            } else {
+                console.error(error);
+            }
+        }
+    };
     const ArrangeMenu = () => (
       <div className="flex items-center gap-2">
         <Link to="/models/create" className="flex items-center rounded-full p-1 hover:bg-light-gray focus:bg-gray">
@@ -81,7 +101,6 @@ export default function Models({own} : {own:boolean}) {
 
       </div>
     );
-
     const DropdownMenu = () => (
       <div>
         <button type="button" onClick={onClickMenu}
@@ -119,7 +138,7 @@ export default function Models({own} : {own:boolean}) {
                    className="w-auto px-5 p-5 mb-4 mr-1 bg-white rounded-xl drop-shadow-lg hover:drop-shadow-xl cursor-pointer">
                   <div className={'border-b-2 '} style={{display:'flex', flexDirection:'row', justifyContent:'space-between', alignItems:'center'}}>
                       <p className="font-semibold text-xl break-all">{modelData.name}</p>
-                      {deleteOption? <RiDeleteBinLine size="25" color="#484848" className="pl-1" onClick={() => setModalOpen(true)}/>
+                      {deleteOption? <RiDeleteBinLine size="25" color="#484848" className="pl-1" onClick={() => onBinClick(modelData.name)}/>
                       :''}
                   </div>
                   <div className="flex">
@@ -174,7 +193,13 @@ export default function Models({own} : {own:boolean}) {
     <div className="contents">
         <div className="w-full m-2 md:m-10 mt-24">
             <div className="flex justify-between items-center">
-                <DeleteModal header={'adsf'} open={modalOpen} close={setModalOpen} submit={setModalOpen}/>
+                {
+                    modalOpen ? (
+                        <DeleteModal header={selectedModelName + '를 삭제하시겠습니까?'} submit={onModalDeleteClick} close={onModalClose} />
+                    ) : (
+                        ''
+                    )
+                }
                 <div className="flex">
                     <Header title="Models"/>
                     <button onClick={() => setCurrentLayout("GridLayout")} type="button"
@@ -192,7 +217,7 @@ export default function Models({own} : {own:boolean}) {
                 {currentLayout === "GridLayout" ? <GridLayout/> : <ListLayout/>}
             </div>
         </div>
-        {selectedModelId > 0 ?
+        {selectedModelId > 0 && !modalOpen ?
             <div className="w-[700px] ease-in-out duration-300 translate-x-0"><Description modelId={selectedModelId} setSelectedModelId={setSelectedModelId}/></div>
             :
             <div className="w-0 ease-in-out duration-300 translate-x-full hidden"><Description modelId={selectedModelId} setSelectedModelId={setSelectedModelId}/></div>
