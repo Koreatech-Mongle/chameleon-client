@@ -32,7 +32,6 @@ export default function Models({own} : {own:boolean}) {
     const [deleteOption, setDelete] = useState(false);
     const [modalOpen, setModalOpen] = useState(false);
 
-
     useEffect(() => {
         let completed = false;
 
@@ -165,7 +164,7 @@ export default function Models({own} : {own:boolean}) {
                       <Table.HeadCell>{item}</Table.HeadCell>
                   ))}
                   {
-                      modalOpen ? (
+                      deleteOption ? (
                           <Table.HeadCell>{'DELETE'}</Table.HeadCell>
                       ) : (
                           ''
@@ -190,7 +189,7 @@ export default function Models({own} : {own:boolean}) {
                                              className="text-white py-1 w-10 h-6 rounded bg-blue-500 hover:bg-blue-600 hover:drop-shadow-lg"/>
                           </Table.Cell>
                           {
-                              modalOpen ? (
+                              deleteOption ? (
                                   <Table.Cell>
                                       <RiDeleteBinLine size="25" color="#484848" className="pl-1" onClick={() => onBinClick(modelData.name)}/>
                                   </Table.Cell>
