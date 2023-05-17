@@ -56,6 +56,7 @@ export default function Models({own} : {own:boolean}) {
 
     const onDeleteClick = () => {
         setSelectedModelId(-1);
+        setModalOpen(false);
     }
 
     const ArrangeMenu = () => (
@@ -173,7 +174,7 @@ export default function Models({own} : {own:boolean}) {
     <div className="contents">
         <div className="w-full m-2 md:m-10 mt-24">
             <div className="flex justify-between items-center">
-                <DeleteModal header={'adsf'} open={modalOpen} close={setModalOpen}/>
+                <DeleteModal header={'adsf'} open={modalOpen} close={setModalOpen} submit={setModalOpen}/>
                 <div className="flex">
                     <Header title="Models"/>
                     <button onClick={() => setCurrentLayout("GridLayout")} type="button"
