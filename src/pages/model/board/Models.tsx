@@ -164,6 +164,13 @@ export default function Models({own} : {own:boolean}) {
                   {modelColumn.list.map((item) => (
                       <Table.HeadCell>{item}</Table.HeadCell>
                   ))}
+                  {
+                      modalOpen ? (
+                          <Table.HeadCell>{'DELETE'}</Table.HeadCell>
+                      ) : (
+                          ''
+                      )
+                  }
               </Table.Head>
               <Table.Body className="divide-y">
                   {models.map((modelData) => (
@@ -182,6 +189,15 @@ export default function Models({own} : {own:boolean}) {
                               <VscDebugStart onClick={() => onModelSelect(modelData)}
                                              className="text-white py-1 w-10 h-6 rounded bg-blue-500 hover:bg-blue-600 hover:drop-shadow-lg"/>
                           </Table.Cell>
+                          {
+                              modalOpen ? (
+                                  <Table.Cell>
+                                      <RiDeleteBinLine size="25" color="#484848" className="pl-1" onClick={() => onBinClick(modelData.name)}/>
+                                  </Table.Cell>
+                              ) : (
+                                  ''
+                              )
+                          }
                       </Table.Row>
                   ))}
               </Table.Body>
